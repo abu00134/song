@@ -28,9 +28,10 @@ const PORT = process.env.PORT;
 const httpServer = createServer(app);
 initializeSocket(httpServer);
 
+// Update CORS to allow Vercel frontend
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: process.env.NODE_ENV === "production" ? ["https://your-vercel-app.vercel.app", "http://localhost:3000"] : "http://localhost:3000",
         credentials: true,
     })
 );
